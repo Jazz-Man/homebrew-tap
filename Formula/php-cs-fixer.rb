@@ -1,6 +1,6 @@
 class PhpCsFixer < Formula
-  desc "Tool to automatically fix PHP code style"
-  homepage "https://github.com/FriendsOfPHP/PHP-CS-Fixer"
+  desc "Tool to automatically fix PHP coding standards issues"
+  homepage "https://cs.symfony.com/"
   url "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/v3.46.0/php-cs-fixer.phar"
   sha256 "c79357af875009afaf5ddd038f891a305d274b13bd742fd9fb786bd2e0c7803b"
   license "MIT"
@@ -17,14 +17,15 @@ class PhpCsFixer < Formula
 
   test do
     (testpath/"test.php").write <<~EOS
-    <?php $this->foo(   'homebrew rox'   );
+      <?php $this->foo(   'homebrew rox'   );
     EOS
     (testpath/"correct_test.php").write <<~EOS
       <?php
 
       $this->foo('homebrew rox');
     EOS
-    system "#{bin}/php-cs-fixer", "fix", "test.php"
+
+    system bin/"php-cs-fixer", "fix", "test.php"
     assert compare_file("test.php", "correct_test.php")
   end
-
+end
